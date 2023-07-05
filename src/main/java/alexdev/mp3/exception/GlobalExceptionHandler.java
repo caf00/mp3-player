@@ -9,7 +9,7 @@ public class GlobalExceptionHandler {
 
     // Maneja cualquier excepción o RuntimeException que se produzca
     @ExceptionHandler({Exception.class, RuntimeException.class})
-    public ResponseEntity<String> handleException(Exception e) {
+    public ResponseEntity<?> handleException(Exception e) {
         return ResponseEntity
                 .internalServerError() // Retorna un código de respuesta 500 (Internal Server Error)
                 .build();

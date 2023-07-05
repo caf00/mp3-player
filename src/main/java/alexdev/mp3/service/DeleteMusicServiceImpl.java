@@ -9,12 +9,12 @@ import java.io.File;
 public class DeleteMusicServiceImpl implements DeleteMusicService{
 
     @Value("${music.directory}")
-    private String MUSIC_DIRECTORY;
+    private String musicDirectory;
 
     @Override
     public void deleteMusic(String fileName) {
         // Crea un objeto File que representa el archivo de música a eliminar
-        File musicFile = new File(MUSIC_DIRECTORY + "/" + fileName);
+        File musicFile = new File(musicDirectory + "/" + fileName);
         // Verifica si el archivo existe
         if (!musicFile.exists()) {
             throw new RuntimeException("File does not exists");
