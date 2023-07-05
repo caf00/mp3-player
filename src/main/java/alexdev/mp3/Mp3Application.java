@@ -15,7 +15,7 @@ public class Mp3Application {
 	private static final Logger log = LoggerFactory.getLogger(Mp3Application.class);
 
 	@Value("${music.directory}")
-	private String MUSIC_DIRECTORY;
+	private String musicDirectory;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Mp3Application.class, args);
@@ -23,13 +23,13 @@ public class Mp3Application {
 
 	@PostConstruct
 	public void init() {
-		File musicFolder = new File(MUSIC_DIRECTORY);
+		File musicFolder = new File(musicDirectory);
 		if (!musicFolder.exists()) {
 			boolean created = musicFolder.mkdirs();
 			if (created) {
-				log.info("Carpeta 'music' creada en " + MUSIC_DIRECTORY);
+				log.info("Carpeta 'music' creada en " + musicDirectory);
 			} else {
-				log.error("No se pudo crear la carpeta 'music' en " + MUSIC_DIRECTORY);
+				log.error("No se pudo crear la carpeta 'music' en " + musicDirectory);
 			}
 		}
 	}

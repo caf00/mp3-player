@@ -14,7 +14,7 @@ import java.util.Objects;
 @Service
 public class MusicStorageServiceImpl implements MusicStorageService {
     @Value("${music.directory}")
-    private String MUSIC_DIRECTORY;
+    private String musicDirectory;
     @Override
     public void saveMusic(MultipartFile file) {
         // Verifica que el archivo no sea nulo
@@ -22,7 +22,7 @@ public class MusicStorageServiceImpl implements MusicStorageService {
         // Obtiene el nombre original del archivo
         String fileName = file.getOriginalFilename();
         // Crea la ruta de destino para guardar el archivo
-        Path destination = Path.of(MUSIC_DIRECTORY, fileName);
+        Path destination = Path.of(musicDirectory, fileName);
         try (InputStream inputStream = file.getInputStream()) {
             // Copia los datos del archivo de entrada al destino especificado
             Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);

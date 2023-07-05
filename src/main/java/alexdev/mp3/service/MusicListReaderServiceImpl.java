@@ -12,12 +12,12 @@ import java.util.Objects;
 public class MusicListReaderServiceImpl implements MusicListReaderService{
 
     @Value("${music.directory}")
-    private String MUSIC_DIRECTORY;
+    private String musicDirectory;
 
     @Override
     public List<String> getMusicList() {
         // Crea un objeto File que representa la carpeta de música
-        File folder = new File(MUSIC_DIRECTORY);
+        File folder = new File(musicDirectory);
         // Obtiene la lista de archivos dentro de la carpeta
         File[] files = folder.listFiles();
         // Verifica si la lista de archivos es nula (carpeta no encontrada)

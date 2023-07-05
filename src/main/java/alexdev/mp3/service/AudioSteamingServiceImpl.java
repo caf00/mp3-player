@@ -11,12 +11,12 @@ import java.nio.file.Paths;
 @Service
 public class AudioSteamingServiceImpl implements AudioStreamingService{
     @Value("${music.directory}")
-    private String MUSIC_DIRECTORY;
+    private String musicDirectory;
 
     @Override
     public byte[] getMusicResource(String fileName) {
         // Obtiene la ruta completa del archivo de música
-        Path filePath = Paths.get(MUSIC_DIRECTORY, fileName);
+        Path filePath = Paths.get(musicDirectory, fileName);
         // Arreglo de bytes para almacenar los datos del archivo de música
         byte[] audioBytes = new byte[0];
         try {
