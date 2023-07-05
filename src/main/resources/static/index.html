@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor MP3</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="mp3-player-container">
+        <div id="error-message"></div>
+        <div class="header-container">
+            <input type="file" id="songInput" accept="audio/mpeg" style="display: none;">
+            <button class="load-song-button" onclick="selectSong()">+</button>
+            <h2>Lista de reproducción</h2>
+        </div>
+        <div class="music-list-container">
+            <ul id="musicList"></ul>
+            <audio controls id="audioPlayer">
+                <source id="audioSource" src="" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
