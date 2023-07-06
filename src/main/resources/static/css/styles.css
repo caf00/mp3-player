@@ -29,13 +29,12 @@ body {
     color: #ffffff;
     border: none;
     cursor: pointer;
-    /*float: left;*/
     margin-right: 10px;
 }
 .error-message {
      background-color: #d2e951;
-     /*border: 1px solid #ff0000;*/
-     color: #ad0c0c;
+     border: 1px solid #ff0000;
+     color: #ff0000;
      padding: 10px;
      margin-bottom: 10px;
 }

@@ -3,9 +3,7 @@ function loadMusicList() {
         .then(response => response.json())
         .then(musicList => renderMusicList(musicList))
         .catch(error => {
-            const errorMessageElement = document.getElementById('error-message');
-            errorMessageElement.innerHTML = 'Error al obtener la lista de música';
-            errorMessageElement.classList.add('error-message');
+            renderErrorMessage(error)
         });
 }
 function renderMusicList(musicList) {
@@ -43,9 +41,7 @@ function playMusic(fileName) {
             audioPlayer.play();
         })
         .catch(error => {
-            const errorMessageElement = document.getElementById('error-message');
-            errorMessageElement.innerHTML = error.message;
-            errorMessageElement.classList.add('error-message');
+            renderErrorMessage(error)
         });
 }
 function deleteMusic(fileName) {
@@ -60,9 +56,7 @@ function deleteMusic(fileName) {
             loadMusicList()
         })
         .catch(error => {
-            const errorMessageElement = document.getElementById('error-message');
-            errorMessageElement.innerHTML = error.message;
-            errorMessageElement.classList.add('error-message');
+            renderErrorMessage(error)
         });
 }
 function selectSong() {
@@ -85,11 +79,14 @@ document.getElementById("songInput").addEventListener("change", function (event)
             loadMusicList()
         })
         .catch(error => {
-            const errorMessageElement = document.getElementById('error-message');
-            errorMessageElement.innerHTML = error.message;
-            errorMessageElement.classList.add('error-message');
+            renderErrorMessage(error)
         });
 });
+function renderErrorMessage(error) {
+    const errorMessageElement = document.getElementById('error-message');
+    errorMessageElement.innerHTML = error.message;
+    errorMessageElement.classList.add('error-message');
+}
 document.addEventListener("DOMContentLoaded", function () {
     loadMusicList();
 });
