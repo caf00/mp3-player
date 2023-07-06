@@ -41,7 +41,7 @@ function playMusic(fileName) {
             audioPlayer.play();
         })
         .catch(error => {
-            renderErrorMessage(error)
+            renderErrorMessage(error.message)
         });
 }
 function deleteMusic(fileName) {
@@ -51,12 +51,12 @@ function deleteMusic(fileName) {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Error al eliminar el archivo de música');
+                throw new Error('Error al borrar el archivo de música');
             }
             loadMusicList()
         })
         .catch(error => {
-            renderErrorMessage(error)
+            renderErrorMessage(error.message);
         });
 }
 function selectSong() {
@@ -79,12 +79,12 @@ document.getElementById("songInput").addEventListener("change", function (event)
             loadMusicList()
         })
         .catch(error => {
-            renderErrorMessage(error)
+            renderErrorMessage(error.message)
         });
 });
-function renderErrorMessage(error) {
+function renderErrorMessage(message) {
     const errorMessageElement = document.getElementById('error-message');
-    errorMessageElement.innerHTML = error.message;
+    errorMessageElement.innerHTML = message;
     errorMessageElement.classList.add('error-message');
 }
 document.addEventListener("DOMContentLoaded", function () {
