@@ -1,5 +1,6 @@
 package alexdev.mp3.service;
 
+import alexdev.mp3.validator.Validator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,12 @@ public class MusicListReaderServiceImpl implements MusicListReaderService{
     @Value("${music.directory}")
     private String musicDirectory;
 
+    private final Validator<String> mp3ExtensionValidator;
+
+    public MusicListReaderServiceImpl(Validator<String> mp3ExtensionValidator) {
+        this.mp3ExtensionValidator = mp3ExtensionValidator;
+    }
+
     @Override
     public List<String> getMusicList() {
         // Crea un objeto File que representa la carpeta de música
@@ -26,7 +33,7 @@ public class MusicListReaderServiceImpl implements MusicListReaderService{
         return Arrays.stream(files)
                 .filter(File::isFile) // Filtra solo los archivos (no directorios)
                 .map(File::getName) // Mapea cada archivo a su nombre
-                .filter(name -> name.endsWith(".mp3") || name.endsWith(".MP3")) // Filtra solo los archivos con extensión .mp3 o .MP3
+                .filter(mp3ExtensionValidator::validate) // Filtra solo los archivos con extensión .mp3 o .MP3
                 .toList(); // Recolecta los nombres de los archivos en una lista
     }
 }

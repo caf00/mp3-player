@@ -1,5 +1,6 @@
 package alexdev.mp3.service;
 
+import alexdev.mp3.validator.Validator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,12 +16,23 @@ import java.util.Objects;
 public class MusicStorageServiceImpl implements MusicStorageService {
     @Value("${music.directory}")
     private String musicDirectory;
+
+    private Validator<String> mp3ExtensionValidator;
+
+    public MusicStorageServiceImpl(Validator<String> mp3ExtensionValidator) {
+        this.mp3ExtensionValidator = mp3ExtensionValidator;
+    }
+
     @Override
     public void saveMusic(MultipartFile file) {
         // Verifica que el archivo no sea nulo
         Objects.requireNonNull(file);
         // Obtiene el nombre original del archivo
         String fileName = file.getOriginalFilename();
+        // Verificar la extensión del archivo
+        if (!mp3ExtensionValidator.validate(fileName)) {
+            throw new IllegalArgumentException("Invalid file extension.");
+        }
         // Crea la ruta de destino para guardar el archivo
         Path destination = Path.of(musicDirectory, fileName);
         try (InputStream inputStream = file.getInputStream()) {
