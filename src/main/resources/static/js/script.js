@@ -3,7 +3,7 @@ function loadMusicList() {
         .then(response => response.json())
         .then(musicList => renderMusicList(musicList))
         .catch(error => {
-            renderErrorMessage(error)
+            showErrorMessage(error)
         });
 }
 function renderMusicList(musicList) {
@@ -17,7 +17,7 @@ function renderMusicList(musicList) {
         listItem.appendChild(link);
         var deleteButton = document.createElement('button');
         deleteButton.innerText = '-';
-        deleteButton.addEventListener('click', function () {
+        deleteButton.addEventListener('click', _ => {
             deleteMusic(music);
         });
 
@@ -31,7 +31,7 @@ function playMusic(fileName) {
     fetch('/api/music/play/' + encodedSongName)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Error al cargar el archivo de música');
+                throw new Error();
             }
             return response.blob();
         })
@@ -41,7 +41,7 @@ function playMusic(fileName) {
             audioPlayer.play();
         })
         .catch(error => {
-            renderErrorMessage(error.message)
+            showErrorMessage()
         });
 }
 function deleteMusic(fileName) {
@@ -51,19 +51,19 @@ function deleteMusic(fileName) {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Error al borrar el archivo de música');
+                throw new Error();
             }
             loadMusicList()
         })
         .catch(error => {
-            renderErrorMessage(error.message);
+            showErrorMessage();
         });
 }
 function selectSong() {
     var songInput = document.getElementById("songInput");
     songInput.click();
 }
-document.getElementById("songInput").addEventListener("change", function (event) {
+document.getElementById("songInput").addEventListener("change", event => {
     var file = event.target.files[0];
     var formData = new FormData();
     formData.append("file", file);
@@ -74,19 +74,17 @@ document.getElementById("songInput").addEventListener("change", function (event)
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Error al guardar el archivo de música');
+                throw new Error();
             }
             loadMusicList()
         })
         .catch(error => {
-            renderErrorMessage(error.message)
+            showErrorMessage()
         });
 });
-function renderErrorMessage(message) {
-    const errorMessageElement = document.getElementById('error-message');
-    errorMessageElement.innerHTML = message;
-    errorMessageElement.classList.add('error-message');
+function showErrorMessage() {
+    alert('Ups! Ocurrió un error');
 }
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", _ => {
     loadMusicList();
 });
